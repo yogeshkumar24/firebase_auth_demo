@@ -1,10 +1,11 @@
-import 'package:auth_demo/HomePage/home_page.dart';
+import 'package:auth_demo/HomePage/Page/home_page.dart';
+import 'package:auth_demo/PostsDetails/Page/posts_details.dart';
 import 'package:auth_demo/SplashPage/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'Post/post_page.dart';
-import 'SignIn/sign_in_page.dart';
+import 'Post/Page/post_page.dart';
+import 'SignIn/Page/sign_in_page.dart';
 
 
 void main()async{
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
            HomePage.routeName :(context) => HomePage(),
            SignInPage.routeName :(context) => SignInPage(),
            PostPage.routeName :(context) => PostPage(),
+           PostsDetails.routeName :(context) => PostsDetails(),
 
       },
     );

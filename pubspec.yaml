@@ -32,6 +32,8 @@ dependencies:
   connectivity: ^3.0.4
   http: ^0.13.3
   cached_network_image: ^3.0.0
+  scoped_model: ^1.1.0
+  pull_to_refresh: ^2.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

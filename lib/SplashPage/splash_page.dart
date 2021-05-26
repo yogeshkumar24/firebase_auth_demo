@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:auth_demo/HomePage/home_page.dart';
-import 'package:auth_demo/SignIn/sign_in_page.dart';
+import 'package:auth_demo/HomePage/Page/home_page.dart';
+import 'package:auth_demo/SignIn/Page/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

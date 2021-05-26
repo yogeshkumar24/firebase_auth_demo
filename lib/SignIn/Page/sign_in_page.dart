@@ -1,4 +1,4 @@
-import 'package:auth_demo/HomePage/home_page.dart';
+import 'package:auth_demo/HomePage/Page/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';

@@ -1,5 +1,5 @@
-import 'package:auth_demo/Post/post_page.dart';
-import 'package:auth_demo/SignIn/sign_in_page.dart';
+import 'package:auth_demo/Post/Page/post_page.dart';
+import 'package:auth_demo/SignIn/Page/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -59,7 +59,6 @@ bool isLoading = false;
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
