@@ -1,0 +1,38 @@
+import 'package:auth_demo/HomePage/home_page.dart';
+import 'package:auth_demo/SplashPage/splash_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+
+import 'Post/post_page.dart';
+import 'SignIn/sign_in_page.dart';
+
+
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+
+        primarySwatch: Colors.blue,
+      ),
+      home: SplashPage(),
+      routes: {
+           HomePage.routeName :(context) => HomePage(),
+           SignInPage.routeName :(context) => SignInPage(),
+           PostPage.routeName :(context) => PostPage(),
+
+      },
+    );
+  }
+}
+
+
+
