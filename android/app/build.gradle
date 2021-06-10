@@ -46,6 +46,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.auth_demo"
+        multiDexEnabled true
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
