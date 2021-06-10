@@ -1,3 +1,4 @@
+import 'package:auth_demo/HomePage/Page/home_page.dart';
 import 'package:auth_demo/Post/Page/post_page.dart';
 import 'package:auth_demo/SignIn/Page/sign_in_page.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,17 @@ bool isLoading = false;
                   isLoading ? Center(child: CircularProgressIndicator(),):Text("$email",style: TextStyle(fontSize: 12,color: Colors.white),),
                 ],
               ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home Page'),
+              onTap: () {
+                Navigator.of(context).pushNamed(HomePage.routeName);
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 12,right: 12),
+              child: Container(height: 0.50,color: Colors.blue,),
             ),
             ListTile(
               leading: Icon(Icons.view_list),

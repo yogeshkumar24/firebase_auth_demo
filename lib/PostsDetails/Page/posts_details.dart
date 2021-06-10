@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:auth_demo/MyDrawer/my_drawer.dart';
-import 'package:auth_demo/PostsDetails/Model/post_details.dart';
+import 'package:auth_demo/Post/Model/post.dart';
+
 import 'package:auth_demo/PostsDetails/Model/post_details_comments.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class PostsDetails extends StatefulWidget {
   static String routeName = "PostsDetails";
@@ -18,50 +19,45 @@ class PostsDetails extends StatefulWidget {
 
 class _PostsDetailsState extends State<PostsDetails> {
 
-  var id;
-  var savedId;
-  var title;
-  var body;
+
   late List<PostDetailComments> postDetailList;
+     Post? post;
 
   @override
   void initState() {
     postDetailList = <PostDetailComments>[];
-
-    postsDetails().then((value) {
-    });
-
-    postsDetailsComments().then((value) {
-      setState(() {
-        postDetailList = value;
-      });
-    });
 
     super.initState();
   }
 
   getArgs() {
     print("Called ===============");
-    Map map = ModalRoute
+     post = ModalRoute
         .of(context)
         ?.settings
-        .arguments as Map;
-    id = map["index"];
-    print("index came from arge${id}");
+        .arguments as Post;
+
+    postsDetailsComments().then((value) {
+      setState(() {
+        postDetailList = value;
+      });
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
-    getArgs();
+    if(post==null){
+      getArgs();
+    }
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(title: Text("Post Details"),),
       body: Column(
         children: [
-        isLoading
-            ? Center(child: CircularProgressIndicator(color: Colors.white,),)
-            : Container(height: MediaQuery
+       Container(
+          width:double.infinity,
+          height: MediaQuery
             .of(context)
             .size
             .height / 4, color: Colors.blue,
@@ -69,14 +65,16 @@ class _PostsDetailsState extends State<PostsDetails> {
           child: Column(
             crossAxisAlignment:CrossAxisAlignment.start,
             children: [
-              Text(
-                title, style: TextStyle(color: Colors.white, fontSize: 16),),
+             post == null?Container():Text(
+                post?.title??"", style: TextStyle(color: Colors.white, fontSize: 16),),
               SizedBox(height: 12,),
               Text(
-                body, style: TextStyle(color: Colors.white, fontSize: 12),),
+                post?.body??"", style: TextStyle(color: Colors.white, fontSize: 12),),
             ],),),
-        Expanded(
-          child: ListView.builder(
+           Expanded(
+          child:isLoading
+              ? Center(child: CircularProgressIndicator(color: Colors.blue,),)
+              : ListView.builder(
               itemCount: postDetailList.length,
               shrinkWrap: true,
               itemBuilder: (context ,index){
@@ -112,32 +110,16 @@ class _PostsDetailsState extends State<PostsDetails> {
 
   bool isLoading = false;
 
-  Future postsDetails() async {
-    setState(() {
-      isLoading = true;
-    });
-    Response response = await http.get(
-      Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
-    );
-    setState(() {
-      isLoading = false;
-    });
-    var data = json.decode(response.body);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      title = data["title"];
-      body = data["body"];
-    } else {
-      print(response.statusCode);
-    }
-  }
 
   Future<List<PostDetailComments>> postsDetailsComments() async {
     setState(() {
       isLoading = true;
     });
+    var id = post?.id??"1";
+    print("id is$id");
+    print(post?.title);
     Response response = await http.get(
-      Uri.parse('https://jsonplaceholder.typicode.com/comments?postId=1'),
+      Uri.parse('https://jsonplaceholder.typicode.com/comments?postId=$id'),
     );
     setState(() {
       isLoading = false;

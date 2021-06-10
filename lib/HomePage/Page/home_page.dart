@@ -1,6 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:auth_demo/HomePage/Model/demo_model.dart';
 import 'package:auth_demo/MyDrawer/my_drawer.dart';
+import 'package:auth_demo/Post/Model/post.dart';
+import 'package:auth_demo/PostsDetails/Page/posts_details.dart';
+import 'package:auth_demo/Services/post_services.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   GoogleSignIn googleSignIn  =  GoogleSignIn();
   late List<DemoModel> modelList;
-
+  late Post post;
 
   @override
   void initState() {
@@ -29,11 +34,67 @@ class _HomePageState extends State<HomePage> {
       });
     });
 
-
+    initDynamicLinks();
     super.initState();
   }
-  @override
+
+
+  void initDynamicLinks() async {
+
+    post = Post();
+    post.body= "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium";
+    post.title ="sunt aut facere repellat provident occaecati excepturi optio reprehenderit";
+    PostService().init();
+    List<Post> postList = PostService().postList;
+    print("=========================${postList.length}");
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (dynamicLink) async {
+          final Uri? deepLink = dynamicLink?.link;
+          print(deepLink);
+          if (deepLink != null) {
+            bool  isPostPage = deepLink.path == "/postPage.com";
+            print(deepLink);
+            if(isPostPage){
+              setState(() {
+                print("postPage");
+                Navigator.of(context).pushNamed(PostsDetails.routeName,arguments: postList== null || postList.isEmpty ?post:postList[4]);
+              });
+
+            }else{
+              print("homepage");
+              Navigator.pushNamed(context, HomePage.routeName);
+
+            }
+          }
+        },
+        onError: (OnLinkErrorException e) async {
+          print('onLinkError');
+          print(e.message);
+        }
+    );
+
+    final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri? deepLink = data?.link;
+
+    if (deepLink != null) {
+      bool  isPostPage = deepLink.path == "/postPage.com";
+      print(deepLink);
+      if(isPostPage){
+        setState(() {
+          Navigator.of(context).pushNamed(PostsDetails.routeName,arguments: postList.isEmpty || postList == null ?post:postList[4]);
+        });
+        print("postPage");
+      }else{
+        Navigator.pushNamed(context, HomePage.routeName,);
+        print("homepage");
+      }
+    }
+  }
+
+
+
   Widget build(BuildContext context) {
+
     return Scaffold(
         drawer: MyDrawer(),
       appBar: AppBar(title: Text("Home Page"),
