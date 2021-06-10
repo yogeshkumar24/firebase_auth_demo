@@ -55,7 +55,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("app/android.keystore")
+            storeFile file("my_release_key1")
             storePassword "1234567@"
             keyAlias "key0"
             keyPassword "1234567@"
