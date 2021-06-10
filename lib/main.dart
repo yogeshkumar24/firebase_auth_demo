@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
            PostPage.routeName :(context) => PostPage(),
            PostsDetails.routeName :(context) => PostsDetails(),
 
+
       },
     );
   }
