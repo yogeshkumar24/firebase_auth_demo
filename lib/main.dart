@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
            SignInPage.routeName :(context) => SignInPage(),
            PostPage.routeName :(context) => PostPage(),
            PostsDetails.routeName :(context) => PostsDetails(),
-
-
+        //git
       },
     );
   }
