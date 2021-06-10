@@ -55,10 +55,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile rootProject.file("app/android.keystore")
-            storePassword System.getenv("1234567@")
-            keyAlias System.getenv("AppKey")
-            keyPassword System.getenv("1234567@")
+            storeFile file("app/android.keystore")
+            storePassword "1234567@"
+            keyAlias "key0"
+            keyPassword "1234567@"
         }
     }
     buildTypes {
