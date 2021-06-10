@@ -26,6 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashPage(),
 
+
+
       routes: {
            HomePage.routeName :(context) => HomePage(),
            SignInPage.routeName :(context) => SignInPage(),
